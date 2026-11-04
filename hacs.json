@@ -1,0 +1,6 @@
+{
+  "name": "企业微信通知",
+  "country": ["CN"],
+  "homeassistant": "2024.6.0",
+  "render_readme": true
+}

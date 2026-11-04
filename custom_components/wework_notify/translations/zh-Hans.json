@@ -1,0 +1,114 @@
+{
+  "title": "企业微信通知",
+  "config": {
+    "step": {
+      "user": {
+        "title": "添加企业微信应用",
+        "description": "在企业微信管理后台创建一个自建应用，把它的凭据填在这里。发送消息的机器公网出口 IP 需要加入该应用的「企业可信 IP」。",
+        "data": {
+          "corpid": "企业 ID（corpid）",
+          "agentid": "应用 AgentId",
+          "secret": "应用 Secret",
+          "touser": "默认接收人",
+          "api_base": "接口地址"
+        },
+        "data_description": {
+          "corpid": "企业 ID，在管理后台「我的企业 → 企业信息」最下方可以看到。",
+          "agentid": "自建应用的 AgentId，在应用详情页可以看到。",
+          "secret": "自建应用的 Secret，用来换取 access_token。",
+          "touser": "默认接收人，多个用 | 分隔，例如 @all 或 user1|user2。@all 表示应用可见范围内的所有人。",
+          "api_base": "留空即使用企业微信官方接口，只有自建网关或本地联调时才需要改。"
+        }
+      },
+      "reconfigure": {
+        "title": "重新配置企业微信应用",
+        "description": "修改凭据或接收人。提交后集成会自动重新加载。",
+        "data": {
+          "corpid": "企业 ID（corpid）",
+          "agentid": "应用 AgentId",
+          "secret": "应用 Secret",
+          "touser": "默认接收人",
+          "api_base": "接口地址"
+        },
+        "data_description": {
+          "corpid": "企业 ID，在管理后台「我的企业 → 企业信息」可以看到。",
+          "agentid": "自建应用的 AgentId。",
+          "secret": "自建应用的 Secret。",
+          "touser": "默认接收人，多个用 | 分隔，例如 @all。",
+          "api_base": "留空即使用企业微信官方接口，只有自建网关或本地联调时才需要改。"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "企业微信拒绝了这组凭据。请检查企业 ID、AgentId、Secret，以及发送机器的出口 IP 是否已加入可信 IP。",
+      "cannot_connect": "无法连接企业微信接口。请检查网络和接口地址。",
+      "unknown": "出现未预期的错误，详细原因请查看 Home Assistant 日志。"
+    },
+    "abort": {
+      "already_configured": "这个企业微信应用已经配置过了。",
+      "reconfigure_successful": "重新配置已生效。"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "企业微信选项",
+        "description": "调整默认接收人和接口地址。",
+        "data": {
+          "touser": "默认接收人",
+          "api_base": "接口地址"
+        },
+        "data_description": {
+          "touser": "默认接收人，多个用 | 分隔，例如 @all。",
+          "api_base": "留空即使用企业微信官方接口，只有自建网关或本地联调时才需要改。"
+        }
+      }
+    }
+  },
+  "services": {
+    "send_rich": {
+      "name": "发送富消息",
+      "description": "向企业微信应用推送文本、卡片、图文或 Markdown 消息。",
+      "fields": {
+        "message": {
+          "name": "正文内容",
+          "description": "消息正文。纯文本类型下与标题以分隔线拼接。"
+        },
+        "title": {
+          "name": "标题",
+          "description": "卡片与图文类型必填；纯文本类型下作为正文前缀。"
+        },
+        "msgtype": {
+          "name": "消息类型",
+          "description": "纯文本 / 卡片 / 图文 / Markdown。"
+        },
+        "url": {
+          "name": "跳转链接",
+          "description": "点击消息后打开的地址。"
+        },
+        "picurl": {
+          "name": "封面图片地址",
+          "description": "图文消息的封面图 URL。"
+        },
+        "touser": {
+          "name": "接收人",
+          "description": "只对这条消息生效的接收人，覆盖默认值。"
+        },
+        "entry_id": {
+          "name": "配置条目",
+          "description": "只通过指定的企业微信应用推送；留空则推送到所有已配置的应用。"
+        }
+      }
+    }
+  },
+  "selector": {
+    "wework_msgtype": {
+      "options": {
+        "text": "纯文本",
+        "textcard": "文本卡片",
+        "news": "图文消息",
+        "markdown": "Markdown"
+      }
+    }
+  }
+}

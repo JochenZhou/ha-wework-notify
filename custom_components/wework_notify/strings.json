@@ -1,0 +1,114 @@
+{
+  "title": "WeCom Notify",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Add WeCom app",
+        "description": "Create an internal app in the WeCom admin console and paste its credentials here. The sending host's public IP must be listed under the app's trusted IPs.",
+        "data": {
+          "corpid": "Corp ID",
+          "agentid": "Agent ID",
+          "secret": "App secret",
+          "touser": "Recipients",
+          "api_base": "API base URL"
+        },
+        "data_description": {
+          "corpid": "Corp ID of your enterprise, found under My Company > Company Info in the WeCom admin console.",
+          "agentid": "AgentId of the internal app, found on the app detail page.",
+          "secret": "Secret of the internal app. Used to obtain an access token.",
+          "touser": "Default recipients, separated by |, for example @all or user1|user2. Use @all for everyone in the app's visible range.",
+          "api_base": "Leave empty to use the official WeCom API. Only change it for a self-hosted gateway or local testing."
+        }
+      },
+      "reconfigure": {
+        "title": "Reconfigure WeCom app",
+        "description": "Update the credentials or recipients. The integration reloads after you submit.",
+        "data": {
+          "corpid": "Corp ID",
+          "agentid": "Agent ID",
+          "secret": "App secret",
+          "touser": "Recipients",
+          "api_base": "API base URL"
+        },
+        "data_description": {
+          "corpid": "Corp ID of your enterprise.",
+          "agentid": "AgentId of the internal app.",
+          "secret": "Secret of the internal app.",
+          "touser": "Default recipients, separated by |, for example @all.",
+          "api_base": "Leave empty to use the official WeCom API. Only change it for a self-hosted gateway or local testing."
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "WeCom rejected the credentials. Check the Corp ID, Agent ID, secret, and whether the sending IP is trusted.",
+      "cannot_connect": "Could not reach the WeCom API. Check the network and the API base URL.",
+      "unknown": "Unexpected error, check the Home Assistant log for details."
+    },
+    "abort": {
+      "already_configured": "This WeCom app is already configured.",
+      "reconfigure_successful": "Reconfiguration was applied."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "WeCom options",
+        "description": "Adjust the default recipients and the API base URL.",
+        "data": {
+          "touser": "Recipients",
+          "api_base": "API base URL"
+        },
+        "data_description": {
+          "touser": "Default recipients, separated by |, for example @all.",
+          "api_base": "Leave empty to use the official WeCom API. Only change it for a self-hosted gateway or local testing."
+        }
+      }
+    }
+  },
+  "services": {
+    "send_rich": {
+      "name": "Send rich message",
+      "description": "Push a text, textcard, news or markdown message to the WeCom app.",
+      "fields": {
+        "message": {
+          "name": "Message",
+          "description": "Message body. For text messages the title is prefixed with a divider."
+        },
+        "title": {
+          "name": "Title",
+          "description": "Required for textcard and news; used as a prefix for text messages."
+        },
+        "msgtype": {
+          "name": "Message type",
+          "description": "text, textcard, news or markdown."
+        },
+        "url": {
+          "name": "URL",
+          "description": "Link opened when the message is tapped."
+        },
+        "picurl": {
+          "name": "Cover image URL",
+          "description": "Cover image for news messages."
+        },
+        "touser": {
+          "name": "Recipients",
+          "description": "Overrides the default recipients for this message."
+        },
+        "entry_id": {
+          "name": "Config entry",
+          "description": "Push only through the selected WeCom app. Leave empty to push through all configured apps."
+        }
+      }
+    }
+  },
+  "selector": {
+    "wework_msgtype": {
+      "options": {
+        "text": "Plain text",
+        "textcard": "Text card",
+        "news": "News article",
+        "markdown": "Markdown"
+      }
+    }
+  }
+}

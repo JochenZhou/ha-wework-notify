@@ -1,0 +1,12 @@
+{
+  "domain": "wework_notify",
+  "name": "企业微信通知",
+  "codeowners": ["@JochenZhou"],
+  "config_flow": true,
+  "documentation": "https://github.com/JochenZhou/ha-wework-notify",
+  "integration_type": "service",
+  "iot_class": "cloud_push",
+  "issue_tracker": "https://github.com/JochenZhou/ha-wework-notify/issues",
+  "requirements": [],
+  "version": "2.0.0"
+}

@@ -1,0 +1,54 @@
+send_rich:
+  name: 发送富消息
+  description: 向企业微信应用推送 text / textcard / news / markdown 消息。
+  fields:
+    message:
+      name: 正文内容
+      description: 消息正文。text 类型下与标题以分隔线拼接。
+      required: true
+      example: 客厅温度 26.5℃，空调已开启
+      selector:
+        text:
+          multiline: true
+    title:
+      name: 标题
+      description: textcard / news 类型必填；text 类型下作为正文前缀。
+      example: 家庭提醒
+      selector:
+        text:
+    msgtype:
+      name: 消息类型
+      description: text 纯文本；textcard 卡片；news 图文；markdown 支持加粗与链接语法。
+      default: text
+      selector:
+        select:
+          translation_key: wework_msgtype
+          options:
+            - text
+            - textcard
+            - news
+            - markdown
+    url:
+      name: 跳转链接
+      description: textcard / news 类型下点击后打开的地址。
+      example: https://example.com
+      selector:
+        text:
+    picurl:
+      name: 封面图片地址
+      description: news 类型的封面图 URL。
+      example: https://example.com/cover.jpg
+      selector:
+        text:
+    touser:
+      name: 接收人
+      description: 覆盖该条消息的接收人，多个用 | 分隔，@all 表示应用可见范围内所有人。
+      example: "@all"
+      selector:
+        text:
+    entry_id:
+      name: 配置条目
+      description: 只往指定的企业微信应用推送；留空则推送到所有已配置的应用。
+      selector:
+        config_entry:
+          integration: wework_notify
