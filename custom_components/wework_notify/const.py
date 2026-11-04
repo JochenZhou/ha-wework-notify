@@ -7,10 +7,14 @@ CONF_CORPID = "corpid"
 CONF_AGENTID = "agentid"
 CONF_SECRET = "secret"
 CONF_TOUSER = "touser"
+CONF_TOUSER_SELF = "touser_self"
 CONF_API_BASE = "api_base"
 
 DEFAULT_API_BASE = "https://qyapi.weixin.qq.com"
 DEFAULT_TOUSER = "@all"
+
+# 个人接收人实体的名称后缀（f"{条目名} 个人"）
+SELF_SUFFIX = " 个人"
 
 # 消息类型
 MSG_TEXT = "text"

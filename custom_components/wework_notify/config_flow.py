@@ -19,6 +19,7 @@ from .const import (
     CONF_CORPID,
     CONF_SECRET,
     CONF_TOUSER,
+    CONF_TOUSER_SELF,
     DEFAULT_API_BASE,
     DEFAULT_TOUSER,
     DISPLAY_NAME,
@@ -36,6 +37,7 @@ def _settings(entry: ConfigEntry) -> dict[str, Any]:
         CONF_AGENTID: merged.get(CONF_AGENTID, ""),
         CONF_SECRET: merged.get(CONF_SECRET, ""),
         CONF_TOUSER: merged.get(CONF_TOUSER) or DEFAULT_TOUSER,
+        CONF_TOUSER_SELF: merged.get(CONF_TOUSER_SELF) or "",
         CONF_API_BASE: merged.get(CONF_API_BASE) or DEFAULT_API_BASE,
     }
 
@@ -47,6 +49,7 @@ def _normalize(user_input: dict[str, Any]) -> dict[str, Any]:
         CONF_AGENTID: int(user_input.get(CONF_AGENTID) or 0),
         CONF_SECRET: str(user_input.get(CONF_SECRET, "")).strip(),
         CONF_TOUSER: str(user_input.get(CONF_TOUSER) or DEFAULT_TOUSER).strip() or DEFAULT_TOUSER,
+        CONF_TOUSER_SELF: str(user_input.get(CONF_TOUSER_SELF) or "").strip(),
         CONF_API_BASE: str(user_input.get(CONF_API_BASE) or DEFAULT_API_BASE).strip().rstrip("/"),
     }
 
@@ -68,6 +71,9 @@ def _schema(defaults: dict[str, Any] | None = None) -> vol.Schema:
             ),
             vol.Optional(
                 CONF_TOUSER, default=d.get(CONF_TOUSER) or DEFAULT_TOUSER
+            ): selector.TextSelector(),
+            vol.Optional(
+                CONF_TOUSER_SELF, default=d.get(CONF_TOUSER_SELF) or ""
             ): selector.TextSelector(),
             vol.Optional(
                 CONF_API_BASE, default=d.get(CONF_API_BASE) or DEFAULT_API_BASE
@@ -168,6 +174,7 @@ class WeWorkOptionsFlow(OptionsFlow):
             options = {
                 CONF_TOUSER: str(user_input.get(CONF_TOUSER) or DEFAULT_TOUSER).strip()
                 or DEFAULT_TOUSER,
+                CONF_TOUSER_SELF: str(user_input.get(CONF_TOUSER_SELF) or "").strip(),
                 CONF_API_BASE: str(
                     user_input.get(CONF_API_BASE) or DEFAULT_API_BASE
                 ).strip().rstrip("/"),
@@ -180,6 +187,9 @@ class WeWorkOptionsFlow(OptionsFlow):
                 {
                     vol.Optional(
                         CONF_TOUSER, default=_settings(entry)[CONF_TOUSER]
+                    ): selector.TextSelector(),
+                    vol.Optional(
+                        CONF_TOUSER_SELF, default=_settings(entry)[CONF_TOUSER_SELF]
                     ): selector.TextSelector(),
                     vol.Optional(
                         CONF_API_BASE, default=_settings(entry)[CONF_API_BASE]

@@ -10,14 +10,16 @@
           "agentid": "Agent ID",
           "secret": "App secret",
           "touser": "Recipients",
-          "api_base": "API base URL"
+          "api_base": "API base URL",
+          "touser_self": "Personal recipient"
         },
         "data_description": {
           "corpid": "Corp ID of your enterprise, found under My Company > Company Info in the WeCom admin console.",
           "agentid": "AgentId of the internal app, found on the app detail page.",
           "secret": "Secret of the internal app. Used to obtain an access token.",
           "touser": "Default recipients, separated by |, for example @all or user1|user2. Use @all for everyone in the app's visible range.",
-          "api_base": "Leave empty to use the official WeCom API. Only change it for a self-hosted gateway or local testing."
+          "api_base": "Leave empty to use the official WeCom API. Only change it for a self-hosted gateway or local testing.",
+          "touser_self": "Your own WeCom member account (UserID, visible in Contacts). When set, an extra notify entity with a \"personal\" suffix is created that sends only to you; leave empty to skip."
         }
       },
       "reconfigure": {
@@ -28,14 +30,16 @@
           "agentid": "Agent ID",
           "secret": "App secret",
           "touser": "Recipients",
-          "api_base": "API base URL"
+          "api_base": "API base URL",
+          "touser_self": "Personal recipient"
         },
         "data_description": {
           "corpid": "Corp ID of your enterprise.",
           "agentid": "AgentId of the internal app.",
           "secret": "Secret of the internal app.",
           "touser": "Default recipients, separated by |, for example @all.",
-          "api_base": "Leave empty to use the official WeCom API. Only change it for a self-hosted gateway or local testing."
+          "api_base": "Leave empty to use the official WeCom API. Only change it for a self-hosted gateway or local testing.",
+          "touser_self": "Your own WeCom member account (UserID, visible in Contacts). When set, an extra notify entity with a \"personal\" suffix is created that sends only to you; leave empty to skip."
         }
       }
     },
@@ -56,11 +60,13 @@
         "description": "Adjust the default recipients and the API base URL.",
         "data": {
           "touser": "Recipients",
-          "api_base": "API base URL"
+          "api_base": "API base URL",
+          "touser_self": "Personal recipient"
         },
         "data_description": {
           "touser": "Default recipients, separated by |, for example @all.",
-          "api_base": "Leave empty to use the official WeCom API. Only change it for a self-hosted gateway or local testing."
+          "api_base": "Leave empty to use the official WeCom API. Only change it for a self-hosted gateway or local testing.",
+          "touser_self": "Your own WeCom member account (UserID, visible in Contacts). When set, an extra notify entity with a \"personal\" suffix is created that sends only to you; leave empty to skip."
         }
       }
     }

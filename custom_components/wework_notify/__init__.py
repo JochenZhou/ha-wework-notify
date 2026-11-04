@@ -32,7 +32,7 @@ from .const import (
     MSG_TEXTCARD,
     MSG_TYPES,
 )
-from .notify import async_push
+from .notify import async_push, entry_option
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -72,12 +72,8 @@ async def async_setup_entry(hass: HomeAssistant, entry: WeWorkConfigEntry) -> bo
         corpid=entry.data[CONF_CORPID],
         secret=entry.data[CONF_SECRET],
         agentid=entry.data[CONF_AGENTID],
-        touser=entry.options.get(CONF_TOUSER)
-        or entry.data.get(CONF_TOUSER)
-        or DEFAULT_TOUSER,
-        base_url=entry.options.get(CONF_API_BASE)
-        or entry.data.get(CONF_API_BASE)
-        or DEFAULT_API_BASE,
+        touser=entry_option(entry, CONF_TOUSER, DEFAULT_TOUSER) or DEFAULT_TOUSER,
+        base_url=entry_option(entry, CONF_API_BASE, DEFAULT_API_BASE) or DEFAULT_API_BASE,
     )
     hass.data.setdefault(DOMAIN, {})[entry.entry_id] = WeWorkRuntime(api=api, entry=entry)
 
